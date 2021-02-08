@@ -1,0 +1,7 @@
+{
+    "development":{
+        "database":"dev_mysql_gcp",
+        "username":"bill",
+        "password":"passpass"
+    }
+}
