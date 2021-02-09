@@ -6,6 +6,9 @@ module.exports = {
     authenticate: async(req,res)=>{
         const {email, password} = req.body
         const user = await User.findOne({where:{email: email}})
+        if(!user || user === null || user === undefined || user.email != email){
+            res.json({succes:false, msg:"User not founded"}).status(400)
+        }
         const match = await bcrypt.compare(password, user.password)
 
         if(!match){

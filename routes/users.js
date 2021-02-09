@@ -13,9 +13,6 @@ router.get('/findall', async(req, res, next)=>{
 
 })
 router.post('/create', usersController.create)
-
-router.get('/', (req, res, next)=>{return res.json({msg:'ok'})})
-
 router.post('/authenticate',authController.authenticate); 
 
 

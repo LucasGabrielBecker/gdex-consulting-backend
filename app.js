@@ -26,4 +26,7 @@ async function connectDB(){
 
 connectDB();
 
-app.listen(PORT, () => {console.log(`app running in http://127.0.0.1:${PORT}/`)})
+app.listen(PORT, () => {
+	console.clear()
+	console.log(`app running in http://127.0.0.1:${PORT}/`)
+})
