@@ -1,7 +1,7 @@
 {
     "development":{
-        "database":"dev_mysql_gcp",
-        "username":"bill",
-        "password":"passpass"
+        "database":"runt_backend",
+        "username":"root",
+        "password":"root"
     }
 }

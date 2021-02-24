@@ -1,4 +1,5 @@
 const User = require("../models/user")
+const ValidationError = require("sequelize").ValidationError
 
 module.exports = {
     getall: async (req, res, next)=>{
@@ -6,7 +7,7 @@ module.exports = {
             const users = await User.find()
             console.log(users)
             res.json(users)
-            
+
         } catch (error) {
             res.json(error)
         }
@@ -14,18 +15,22 @@ module.exports = {
     },
 
     create: async (req, res, next)=>{
-        const { name, age, specialties, password, nickname, sex, birthday, email} =req.body;
-        if(!name || name === undefined || !age || age===undefined || !specialties || specialties === undefined){
+        let { firstName, lastName,password, nickname, sex, day, month, year, email} =req.body;
+        if(!firstName || firstName === undefined || !lastName || lastName === undefined){
             return res.json({succes:false, msg:"Missing info for register"})
         }
 
         try {
-            const newUser = await User.create({name, age, specialties, password, nickname, sex, birthday, email})
-            return res.json({msg:"Succes", newUser}).status(200)
-            
+          const name = firstName + " " + lastName
+          const birthday = `${month.toString()}-${day.toString()}-${year.toString()}`
+          const newUser = await User.create({name, password, nickname, sex,age:23, birthday, email})
+          return res.json({msg:"Succes", newUser}).status(200)
         } catch (error) {
-            console.warn(error.message)
-            return res.json({succes:false, msg:" An error ocurred", error})
+          if(error.original.errno === 1062){
+            return res.json({succes:false, msg:"Email ja existente", error})            
+          }
+
+          return res.json({succes:false, msg:" An error ocurred", error})
         }
     }
 }

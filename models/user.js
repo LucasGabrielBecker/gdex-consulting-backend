@@ -7,23 +7,27 @@ const User = sequelizeConnection.define("user", {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true
-    },  
+    },
   name: {
       type: DataTypes.STRING,
       allowNull:false
     },
     age: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
+      defaultValue: 0,
     },
     specialties: {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: true,
+      defaultValue: "",
       get() {
           return this.getDataValue('specialties').split(';')
       },
       set(val) {
-        
+          if(!val){
+            return
+          }
           this.setDataValue('specialties',val.join(';'));
       },
     },
@@ -39,7 +43,8 @@ const User = sequelizeConnection.define("user", {
     email:{
       type:DataTypes.STRING,
       allowNull:false,
-      trim:true
+      trim:true,
+      unique: true
     },
     birthday:{
       type: DataTypes.DATEONLY, //MM-DD-YYYY
@@ -48,7 +53,7 @@ const User = sequelizeConnection.define("user", {
     sex:{
       //0 = woman, 1 = man
       type:DataTypes.INTEGER,
-      allowNull:true
+      allowNull:false
     }
   },
   //begining of sequelize models hooks, applied at life cycle level

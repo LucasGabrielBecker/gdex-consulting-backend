@@ -1,20 +1,21 @@
 {
-  "name": "nodejs-template",
+  "name": "runt_backend",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": " backend built for runt platform",
+  "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js --trace-warning"
+    "start": "node app.js",
+    "dev": "nodemon app.js --trace-warning"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "express": "^4.17.1",
-    "morgan": "^1.10.0",
     "nodemon": "^2.0.4"
   },
   "dependencies": {
+    "morgan": "^1.10.0",
+    "express": "^4.17.1",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
