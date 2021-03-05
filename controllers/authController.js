@@ -18,5 +18,24 @@ module.exports = {
 
         res.json({user, token}).status(200)
 
+    },
+
+    validate : async (req, res)=>{
+        const { authorization } = req.headers
+        if(!authorization){
+            res.json({succes:false, msg:"No token provided"})
+        }
+
+        const [_, token] = authorization.split(" ")
+
+        const match = jwt.verify(token, 'secret', (error, decoded)=>{
+            if(error){
+                res.json({succes:false, msg: "Invalid Token"}).status(403)
+            }
+            console.log(decoded)
+            // res.send("ok")
+            const {password, createdAt, updatedAt, id, ...result} = decoded
+            res.json({succes:true, msg:"Valid token", result})
+        })
     }
 }
